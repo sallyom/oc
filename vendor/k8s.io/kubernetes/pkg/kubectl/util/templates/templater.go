@@ -39,7 +39,6 @@ func ActsAsRootCommand(cmd *cobra.Command, filters []string, groups ...CommandGr
 	}
 	templater := &templater{
 		RootCmd:       cmd,
-		UsageTemplate: MainUsageTemplate(),
 		HelpTemplate:  MainHelpTemplate(),
 		CommandGroups: groups,
 		Filtered:      filters,

@@ -69,13 +69,8 @@ const (
 {{end}}`
 )
 
-// MainHelpTemplate if the template for 'help' used by most commands.
+// MainHelpTemplate is the template for 'help' used by most commands.
 func MainHelpTemplate() string {
-	return `{{with or .Long .Short }}{{. | trim}}{{end}}{{if or .Runnable .HasSubCommands}}{{.UsageString}}{{end}}`
-}
-
-// MainUsageTemplate if the template for 'usage' used by most commands.
-func MainUsageTemplate() string {
 	sections := []string{
 		"\n\n",
 		SectionVars,
@@ -90,12 +85,12 @@ func MainUsageTemplate() string {
 	return strings.TrimRightFunc(strings.Join(sections, ""), unicode.IsSpace)
 }
 
-// OptionsHelpTemplate if the template for 'help' used by the 'options' command.
+// OptionsHelpTemplate is the template for 'help' used by the 'options' command.
 func OptionsHelpTemplate() string {
 	return ""
 }
 
-// OptionsUsageTemplate if the template for 'usage' used by the 'options' command.
+// OptionsUsageTemplate is the template for 'usage' used by the 'options' command.
 func OptionsUsageTemplate() string {
 	return `{{ if .HasInheritedFlags}}The following options can be passed to any command:
 

@@ -25,37 +25,42 @@ func ActsAsRootCommand(cmd *cobra.Command, filters []string, groups ...ktemplate
 	}
 	templater := &templater{
 		RootCmd:       cmd,
-		UsageTemplate: mainUsageTemplate(),
 		HelpTemplate:  ktemplates.MainHelpTemplate(),
 		CommandGroups: groups,
 		Filtered:      filters,
 	}
+	cmd.SetFlagErrorFunc(templater.FlagErrorFunc)
 	cmd.SetUsageFunc(templater.UsageFunc())
 	cmd.SetHelpFunc(templater.HelpFunc())
 	return templater
 }
 
-func mainUsageTemplate() string {
-	sections := []string{
-		"\n\n",
-		ktemplates.SectionVars,
-		ktemplates.SectionAliases,
-		ktemplates.SectionUsage,
-		ktemplates.SectionExamples,
-		ktemplates.SectionSubcommands,
-		ktemplates.SectionFlags,
-		ktemplates.SectionTipsHelp,
-		ktemplates.SectionTipsGlobalOptions,
-	}
-	return strings.TrimRightFunc(strings.Join(sections, ""), unicode.IsSpace)
-}
-
 type templater struct {
-	UsageTemplate string
-	HelpTemplate  string
-	RootCmd       *cobra.Command
+	HelpTemplate string
+	RootCmd      *cobra.Command
 	ktemplates.CommandGroups
 	Filtered []string
+}
+
+type FlagError struct {
+	Message string
+}
+
+func (e FlagError) Error() string {
+	return fmt.Sprintf("%s", e.Message)
+}
+
+func (templater *templater) FlagErrorFunc(cmd *cobra.Command, err error) error {
+	if err == nil {
+		return nil
+	}
+	msg := fmt.Sprintf("%s\nSee '%s --help' for more information about a given command.", err, cmd.CommandPath())
+	if cmd.HasSubCommands() {
+		msg = fmt.Sprintf("%s\nSee '%s <command> --help' for more information about a given command.", err, cmd.CommandPath())
+	}
+	return FlagError{
+		Message: msg,
+	}
 }
 
 func (templater *templater) ExposeFlags(cmd *cobra.Command, flags ...string) FlagExposer {
@@ -80,7 +85,6 @@ func (templater *templater) UsageFunc(exposedFlags ...string) func(*cobra.Comman
 	return func(c *cobra.Command) error {
 		t := template.New("usage")
 		t.Funcs(templater.templateFuncs(exposedFlags...))
-		template.Must(t.Parse(templater.UsageTemplate))
 		out := term.NewResponsiveWriter(c.OutOrStderr())
 		return t.Execute(out, c)
 	}
