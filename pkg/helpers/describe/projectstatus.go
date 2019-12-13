@@ -25,7 +25,6 @@ import (
 	batchv1client "k8s.io/client-go/kubernetes/typed/batch/v1"
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/kubectl/pkg/scheme"
-	deployutil "k8s.io/kubernetes/pkg/controller/deployment/util"
 
 	"github.com/openshift/api/annotations"
 	appsv1 "github.com/openshift/api/apps/v1"
@@ -39,6 +38,7 @@ import (
 	projectv1client "github.com/openshift/client-go/project/clientset/versioned/typed/project/v1"
 	routev1client "github.com/openshift/client-go/route/clientset/versioned/typed/route/v1"
 	"github.com/openshift/library-go/pkg/apps/appsutil"
+	revisionhelper "github.com/openshift/oc/pkg/cli/helpers/revision"
 	loginerrors "github.com/openshift/oc/pkg/helpers/errors"
 	appsedges "github.com/openshift/oc/pkg/helpers/graph/appsgraph"
 	appsanalysis "github.com/openshift/oc/pkg/helpers/graph/appsgraph/analysis"
@@ -1371,7 +1371,7 @@ func describeDeployments(f formatter, dNode *kubegraph.DeploymentNode, activeDep
 	}
 	out := []string{}
 	deploymentsToPrint := append([]*kubegraph.ReplicaSetNode{}, inactiveDeployments...)
-	revision, _ := deployutil.Revision(dNode.Deployment)
+	revision, _ := revisionhelper.Revision(dNode.Deployment)
 
 	deploymentsToPrint = append([]*kubegraph.ReplicaSetNode{activeDeployment}, inactiveDeployments...)
 	for i, deployment := range deploymentsToPrint {
@@ -1386,7 +1386,7 @@ func describeDeployments(f formatter, dNode *kubegraph.DeploymentNode, activeDep
 
 func describeDeploymentStatus(rs *kappsv1.ReplicaSet, revision int64, first bool, restartCount int32) string {
 	timeAt := strings.ToLower(formatRelativeTime(rs.CreationTimestamp.Time))
-	replicaSetRevision, _ := deployutil.Revision(rs)
+	replicaSetRevision, _ := revisionhelper.Revision(rs)
 	if replicaSetRevision == revision {
 		return fmt.Sprintf("deployment #%d running for %s%s", replicaSetRevision, timeAt, describePodSummaryInline(rs.Status.ReadyReplicas, rs.Status.Replicas, *rs.Spec.Replicas, false, restartCount))
 	} else {

@@ -37,8 +37,9 @@ import (
 	"k8s.io/client-go/util/retry"
 	kscale "k8s.io/kubectl/pkg/scale"
 	podutil "k8s.io/kubernetes/pkg/api/v1/pod"
-	deploymentutil "k8s.io/kubernetes/pkg/controller/deployment/util"
 	"k8s.io/utils/integer"
+
+	"github.com/openshift/oc/pkg/helpers/graph/appsgraph/analysis"
 )
 
 // ControllerHasDesiredReplicas returns a condition that will be true if and only if
@@ -245,7 +246,7 @@ func (r *RollingUpdater) Update(config *RollingUpdaterConfig) error {
 	}
 	// maxSurge is the maximum scaling increment and maxUnavailable are the maximum pods
 	// that can be unavailable during a rollout.
-	maxSurge, maxUnavailable, err := deploymentutil.ResolveFenceposts(&config.MaxSurge, &config.MaxUnavailable, desired)
+	maxSurge, maxUnavailable, err := analysis.ResolveFenceposts(&config.MaxSurge, &config.MaxUnavailable, desired)
 	if err != nil {
 		return err
 	}

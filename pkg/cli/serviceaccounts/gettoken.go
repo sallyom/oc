@@ -12,7 +12,6 @@ import (
 	cmdutil "k8s.io/kubectl/pkg/cmd/util"
 	"k8s.io/kubectl/pkg/util/templates"
 	kapi "k8s.io/kubernetes/pkg/apis/core"
-	sautil "k8s.io/kubernetes/pkg/serviceaccount"
 
 	"github.com/openshift/oc/pkg/helpers/term"
 )
@@ -125,7 +124,7 @@ func (o *GetServiceAccountTokenOptions) Run() error {
 			continue
 		}
 
-		if sautil.IsServiceAccountToken(secret, serviceAccount) {
+		if isServiceAccountToken(secret, serviceAccount) {
 			token, exists := secret.Data[kapi.ServiceAccountTokenKey]
 			if !exists {
 				return fmt.Errorf("service account token %q for service account %q did not contain token data", secret.Name, serviceAccount.Name)

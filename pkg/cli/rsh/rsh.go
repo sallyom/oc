@@ -18,12 +18,12 @@ import (
 	"k8s.io/kubectl/pkg/cmd/exec"
 	kcmdutil "k8s.io/kubectl/pkg/cmd/util"
 	"k8s.io/kubectl/pkg/polymorphichelpers"
+	"k8s.io/kubectl/pkg/util/podutils"
 	"k8s.io/kubectl/pkg/util/templates"
 	"k8s.io/kubectl/pkg/util/term"
 	"k8s.io/kubernetes/pkg/apis/apps"
 	"k8s.io/kubernetes/pkg/apis/batch"
 	"k8s.io/kubernetes/pkg/apis/extensions"
-	"k8s.io/kubernetes/pkg/controller"
 
 	oapps "github.com/openshift/api/apps"
 	appsv1client "github.com/openshift/client-go/apps/clientset/versioned/typed/apps/v1"
@@ -197,7 +197,7 @@ func (o *RshOptions) Run() error {
 }
 
 func podForResource(f kcmdutil.Factory, resource string, timeout time.Duration) (string, error) {
-	sortBy := func(pods []*corev1.Pod) sort.Interface { return sort.Reverse(controller.ActivePods(pods)) }
+	sortBy := func(pods []*corev1.Pod) sort.Interface { return sort.Reverse(podutils.ActivePods(pods)) }
 	namespace, _, err := f.ToRawKubeConfigLoader().Namespace()
 	if err != nil {
 		return "", err
