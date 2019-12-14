@@ -5,19 +5,19 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	userv1 "github.com/openshift/api/user/v1"
 )
 
-func AddUserOpenShiftHandler(h kprinters.PrintHandler) {
+func AddUserOpenShiftHandler(h PrintHandler) {
 	addUser(h)
 	addIdentity(h)
 	addUserIdentityMapping(h)
 	addGroup(h)
 }
 
-func addUser(h kprinters.PrintHandler) {
+func addUser(h PrintHandler) {
 	userColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "UID", Type: "string", Description: metav1.ObjectMeta{}.SwaggerDoc()["uid"]},
@@ -59,7 +59,7 @@ func printUserList(userList *userv1.UserList, options kprinters.PrintOptions) ([
 	return rows, nil
 }
 
-func addIdentity(h kprinters.PrintHandler) {
+func addIdentity(h PrintHandler) {
 	identityColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "IDP Name", Type: "string", Format: "name", Description: userv1.Identity{}.SwaggerDoc()["providerName"]},
@@ -103,7 +103,7 @@ func printIdentityList(identityList *userv1.IdentityList, options kprinters.Prin
 	return rows, nil
 }
 
-func addUserIdentityMapping(h kprinters.PrintHandler) {
+func addUserIdentityMapping(h PrintHandler) {
 	identityColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Identity", Type: "string", Description: userv1.UserIdentityMapping{}.SwaggerDoc()["identity"]},
@@ -130,7 +130,7 @@ func printUserIdentityMapping(mapping *userv1.UserIdentityMapping, options kprin
 	return []metav1.TableRow{row}, nil
 }
 
-func addGroup(h kprinters.PrintHandler) {
+func addGroup(h PrintHandler) {
 	groupColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Users", Type: "string", Description: userv1.Group{}.SwaggerDoc()["users"]},

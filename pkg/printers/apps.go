@@ -8,12 +8,12 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/sets"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	appsv1 "github.com/openshift/api/apps/v1"
 )
 
-func AddAppsOpenShiftHandlers(h kprinters.PrintHandler) {
+func AddAppsOpenShiftHandlers(h PrintHandler) {
 	deploymentConfigColumnDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Revision", Type: "string", Description: appsv1.DeploymentConfigStatus{}.SwaggerDoc()["latestVersion"]},

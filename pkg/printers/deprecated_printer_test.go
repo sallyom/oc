@@ -15,7 +15,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/kubernetes/pkg/api/legacyscheme"
 	kapi "k8s.io/kubernetes/pkg/apis/core"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	"github.com/openshift/openshift-apiserver/pkg/api/install"
 	appsapi "github.com/openshift/openshift-apiserver/pkg/apps/apis/apps"

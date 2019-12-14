@@ -6,14 +6,14 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	templatev1 "github.com/openshift/api/template/v1"
 )
 
 const templateDescriptionLen = 80
 
-func AddTemplateOpenShiftHandlers(h kprinters.PrintHandler) {
+func AddTemplateOpenShiftHandlers(h PrintHandler) {
 	templateColumnDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Description", Type: "string", Description: "Template description."},

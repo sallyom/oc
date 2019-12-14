@@ -7,13 +7,13 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	buildv1 "github.com/openshift/api/build/v1"
 	buildhelpers "github.com/openshift/oc/pkg/helpers/build"
 )
 
-func AddBuildOpenShiftHandlers(h kprinters.PrintHandler) {
+func AddBuildOpenShiftHandlers(h PrintHandler) {
 	buildColumnDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Type", Type: "string", Description: "Describes a particular way of performing a build."},

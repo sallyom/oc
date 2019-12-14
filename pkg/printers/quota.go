@@ -3,16 +3,16 @@ package printers
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	quotav1 "github.com/openshift/api/quota/v1"
 )
 
-func AddQuotaOpenShiftHandler(h kprinters.PrintHandler) {
+func AddQuotaOpenShiftHandler(h PrintHandler) {
 	addClusterResourceQuota(h)
 }
 
-func addClusterResourceQuota(h kprinters.PrintHandler) {
+func addClusterResourceQuota(h PrintHandler) {
 	clusterResourceQuotaColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Labels Selector", Type: "string", Description: quotav1.ClusterResourceQuotaSelector{}.SwaggerDoc()["labels"]},

@@ -6,7 +6,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	authorizationv1 "github.com/openshift/api/authorization/v1"
 	authorizationhelpers "github.com/openshift/oc/pkg/helpers/authorization"
@@ -14,7 +14,7 @@ import (
 
 const numOfRoleBindingRestrictionSubjectsShown = 3
 
-func AddAuthorizationOpenShiftHandler(h kprinters.PrintHandler) {
+func AddAuthorizationOpenShiftHandler(h PrintHandler) {
 	addRole(h)
 	addRoleBinding(h)
 	addRoleBindingRestriction(h)
@@ -22,7 +22,7 @@ func AddAuthorizationOpenShiftHandler(h kprinters.PrintHandler) {
 	addIsPersonalSubjectAccessReview(h)
 }
 
-func addRoleBindingRestriction(h kprinters.PrintHandler) {
+func addRoleBindingRestriction(h PrintHandler) {
 	roleBindingRestrictionColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Subject Type", Type: "string", Description: "Describe the type of the role binding restriction"},
@@ -119,7 +119,7 @@ func roleBindingRestrictionType(rbr *authorizationv1.RoleBindingRestriction) str
 	}
 }
 
-func addIsPersonalSubjectAccessReview(h kprinters.PrintHandler) {
+func addIsPersonalSubjectAccessReview(h PrintHandler) {
 	isPersonalSubjectAccessReviewColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 	}
@@ -136,7 +136,7 @@ func printIsPersonalSubjectAccessReview(isPersonalSAR *authorizationv1.IsPersona
 	return []metav1.TableRow{row}, nil
 }
 
-func addSubjectRulesReview(h kprinters.PrintHandler) {
+func addSubjectRulesReview(h PrintHandler) {
 	policyRuleColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Verbs", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Non-Resource URLs", Type: "string", Description: "Describe the type of the role binding restriction"},
@@ -176,7 +176,7 @@ func printPolicyRule(policyRules []authorizationv1.PolicyRule) ([]metav1.TableRo
 	return rows, nil
 }
 
-func addRole(h kprinters.PrintHandler) {
+func addRole(h PrintHandler) {
 	roleColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 	}
@@ -242,7 +242,7 @@ func printRole(role *authorizationv1.Role, options kprinters.PrintOptions) ([]me
 	return []metav1.TableRow{row}, nil
 }
 
-func addRoleBinding(h kprinters.PrintHandler) {
+func addRoleBinding(h PrintHandler) {
 	roleBindingColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Role", Type: "string", Format: "name", Description: "Role name"},

@@ -7,12 +7,12 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	routev1 "github.com/openshift/api/route/v1"
 )
 
-func AddRouteOpenShiftHandlers(h kprinters.PrintHandler) {
+func AddRouteOpenShiftHandlers(h PrintHandler) {
 	routeColumnDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Host/Port", Type: "string", Description: routev1.RouteSpec{}.SwaggerDoc()["host"]},

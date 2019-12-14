@@ -5,13 +5,13 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	"github.com/openshift/api/annotations"
 	projectv1 "github.com/openshift/api/project/v1"
 )
 
-func AddProjectOpenShiftHandlers(h kprinters.PrintHandler) {
+func AddProjectOpenShiftHandlers(h PrintHandler) {
 	projectColumnDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Display Name", Type: "string", Description: "The name displayed by a UI when referencing a project."},

@@ -6,13 +6,13 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	imagev1 "github.com/openshift/api/image/v1"
 	imagehelpers "github.com/openshift/oc/pkg/helpers/image"
 )
 
-func AddImageOpenShiftHandlers(h kprinters.PrintHandler) {
+func AddImageOpenShiftHandlers(h PrintHandler) {
 	imageColumnDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Image Reference", Type: "string", Description: imagev1.Image{}.SwaggerDoc()["dockerImageReference"]},

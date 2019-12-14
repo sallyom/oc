@@ -6,19 +6,19 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	oauthv1 "github.com/openshift/api/oauth/v1"
 )
 
-func AddOAuthOpenShiftHandler(h kprinters.PrintHandler) {
+func AddOAuthOpenShiftHandler(h PrintHandler) {
 	addOAuthClient(h)
 	addOAuthAccessToken(h)
 	addOAuthAuthorizeToken(h)
 	addOAuthClientAuthorization(h)
 }
 
-func addOAuthClient(h kprinters.PrintHandler) {
+func addOAuthClient(h PrintHandler) {
 	// oauthClientColumns              = []string{"Name", "Secret", "WWW-Challenge", "Token-Max-Age", "Redirect URIs"}
 	oauthClientColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
@@ -69,7 +69,7 @@ func printOAuthClientList(oauthClientList *oauthv1.OAuthClientList, options kpri
 	return rows, nil
 }
 
-func addOAuthClientAuthorization(h kprinters.PrintHandler) {
+func addOAuthClientAuthorization(h PrintHandler) {
 	oauthClientColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "User Name", Type: "string", Format: "name", Description: oauthv1.OAuthClientAuthorization{}.SwaggerDoc()["userName"]},
@@ -109,7 +109,7 @@ func printOAuthClientAuthorizationList(oauthClientAuthorizationList *oauthv1.OAu
 	return rows, nil
 }
 
-func addOAuthAccessToken(h kprinters.PrintHandler) {
+func addOAuthAccessToken(h PrintHandler) {
 	oauthClientColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "User Name", Type: "string", Format: "name", Description: oauthv1.OAuthAccessToken{}.SwaggerDoc()["userName"]},
@@ -160,7 +160,7 @@ func printOAuthAccessTokenList(oauthAccessTokenList *oauthv1.OAuthAccessTokenLis
 	return rows, nil
 }
 
-func addOAuthAuthorizeToken(h kprinters.PrintHandler) {
+func addOAuthAuthorizeToken(h PrintHandler) {
 	oauthClientColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "User Name", Type: "string", Format: "name", Description: oauthv1.OAuthAuthorizeToken{}.SwaggerDoc()["userName"]},

@@ -6,17 +6,17 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	kprinters "k8s.io/kubernetes/pkg/printers"
+	kprinters "k8s.io/cli-runtime/pkg/printers"
 
 	securityv1 "github.com/openshift/api/security/v1"
 )
 
-func AddSecurityOpenShiftHandler(h kprinters.PrintHandler) {
+func AddSecurityOpenShiftHandler(h PrintHandler) {
 	addSecurityContextConstraint(h)
 	addRangeAllocation(h)
 }
 
-func addRangeAllocation(h kprinters.PrintHandler) {
+func addRangeAllocation(h PrintHandler) {
 	rangeAllocationColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Range", Type: "string", Format: "name", Description: securityv1.RangeAllocation{}.SwaggerDoc()["range"]},
@@ -56,7 +56,7 @@ func printRangeAllocationList(allocationList *securityv1.RangeAllocationList, op
 	return rows, nil
 }
 
-func addSecurityContextConstraint(h kprinters.PrintHandler) {
+func addSecurityContextConstraint(h PrintHandler) {
 	securityContextConstraintsColumnsDefinitions := []metav1.TableColumnDefinition{
 		{Name: "Name", Type: "string", Format: "name", Description: metav1.ObjectMeta{}.SwaggerDoc()["name"]},
 		{Name: "Privileged", Type: "bool", Description: securityv1.SecurityContextConstraints{}.SwaggerDoc()["allowPrivilegedContainer"]},
