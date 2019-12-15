@@ -93,10 +93,10 @@ replace (
 	golang.org/x/time => github.com/golang/time v0.0.0-20181108054448-85acf8d2951c
 	k8s.io/api => github.com/kubernetes/api release-1.17
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver release-1.17
-	k8s.io/apimachinery => github.com/openshift/kubernetes-apimachinery v0.0.0-20191104122935-b3ae09682aa5
+	k8s.io/apimachinery => github.com/openshift/kubernetes-apimachinery oc-4.4-kubernetes-1.17.0
 	k8s.io/apiserver => k8s.io/apiserver release-1.17
-	k8s.io/cli-runtime => github.com/openshift/kubernetes-cli-runtime v0.0.0-20191104123654-c7adf34ec214
-	k8s.io/client-go => github.com/openshift/kubernetes-client-go v0.0.0-20191104123213-2d372fee3921
+	k8s.io/cli-runtime => github.com/openshift/kubernetes-cli-runtime oc-4.4-kubernetes-1.17.0
+	k8s.io/client-go => github.com/openshift/kubernetes-client-go oc-4.4-kubernetes-1.17.0
 	k8s.io/cloud-provider => k8s.io/cloud-provider release-1.17
 	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap release-1.17
 	k8s.io/code-generator => k8s.io/code-generator release-1.17
@@ -107,9 +107,9 @@ replace (
 	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager release-1.17
 	k8s.io/kube-proxy => k8s.io/kube-proxy release-1.17
 	k8s.io/kube-scheduler => k8s.io/kube-scheduler release-1.17
-	k8s.io/kubectl => github.com/openshift/kubernetes-kubectl v0.0.0-20191104125842-899bec6923b1
+	k8s.io/kubectl => github.com/openshift/kubernetes-kubectl oc-4.4-kubernetes-1.17.0
 	k8s.io/kubelet => k8s.io/kubelet release-1.17
-	k8s.io/kubernetes => github.com/openshift/kubernetes v0.0.0-20191114140606-30868d58224b
+	k8s.io/kubernetes => github.com/openshift/kubernetes oc-4.4-kubernetes-1.17.0
 	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers release-1.17
 	k8s.io/metrics => k8s.io/metrics release-1.17
 	k8s.io/node-api => k8s.io/node-api release-1.17
