@@ -36,21 +36,26 @@ RPM_EXTRAFLAGS := \
 	--define 'release 1'
 
 IMAGE_REGISTRY :=registry.svc.ci.openshift.org
+IMAGE_REPO :=$(IMAGE_REGISTRY)/ocp/4.3
+IMAGE_CLI := $(IMAGE_REPO):cli
+IMAGE_CLI_ARTIFACTS := $(IMAGE_REPO):cli-artifacts
+IMAGE_DEPLOYER := $(IMAGE_REPO):deployer
+IMAGE_RECYCLER := $(IMAGE_REPO):recycler
 
 # This will call a macro called "build-image" which will generate image specific targets based on the parameters:
 # $1 - target name
 # $2 - image ref
 # $3 - Dockerfile path
 # $4 - context
-$(call build-image,ocp-cli,$(IMAGE_REGISTRY)/ocp/4.2:cli,./images/cli/Dockerfile.rhel,.)
+$(call build-image,ocp-cli,$(IMAGE_CLI),./images/cli/Dockerfile.rhel,.)
 
-$(call build-image,ocp-cli-artifacts,$(IMAGE_REGISTRY)/ocp/4.2:cli-artifacts,./images/cli-artifacts/Dockerfile.rhel,.)
+$(call build-image,ocp-cli-artifacts,$(IMAGE_CLI_ARTIFACTS),./images/cli-artifacts/Dockerfile.rhel,.)
 image-ocp-cli-artifacts: image-ocp-cli
 
-$(call build-image,ocp-deployer,$(IMAGE_REGISTRY)/ocp/4.2:deployer,./images/deployer/Dockerfile.rhel,.)
+$(call build-image,ocp-deployer,$(IMAGE_DEPLOYER),./images/deployer/Dockerfile.rhel,.)
 image-ocp-deployer: image-ocp-cli
 
-$(call build-image,ocp-recycler,$(IMAGE_REGISTRY)/ocp/4.2:recycler,./images/recycler/Dockerfile.rhel,.)
+$(call build-image,ocp-recycler,$(IMAGE_RECYCLER),./images/recycler/Dockerfile.rhel,.)
 image-ocp-recycler: image-ocp-cli
 
 update: update-generated-completions
