@@ -641,8 +641,6 @@ github.com/openshift/kubernetes-client-go v0.0.0-20210521075216-71b63307b5df h1:
 github.com/openshift/kubernetes-client-go v0.0.0-20210521075216-71b63307b5df/go.mod h1:/kEw4RgW+3xnBGzvp9IWxKSNA+lXn3A7AuH3gdOAzLs=
 github.com/openshift/kubernetes-kubectl v0.0.0-20210521075729-633333dfccda h1:BrdJUzcpno20vMqq4KY8TRdHqNTKGR78zjSqVGcU//I=
 github.com/openshift/kubernetes-kubectl v0.0.0-20210521075729-633333dfccda/go.mod h1:PMYR88MqESuysBM/MX+Vu4JbX/50nY4d4kny+SPEI2U=
-github.com/openshift/library-go v0.0.0-20210521084623-7392ea9b02ca h1:NtRAdQTnE4B+UESOUaCSX3dw1uc+PpI1h2X7hUmE/5A=
-github.com/openshift/library-go v0.0.0-20210521084623-7392ea9b02ca/go.mod h1:87ZYjEncF0YNUKNzncb8Fiw8yFNevpIWZW83C/etzpw=
 github.com/opentracing-contrib/go-observer v0.0.0-20170622124052-a52f23424492/go.mod h1:Ngi6UdF0k5OKD5t5wlmGhe/EDKPoUM3BXZSSfIuJbis=
 github.com/opentracing/basictracer-go v1.0.0/go.mod h1:QfBfYuafItcjQuMwinw9GhYKwFXS9KnPs5lxoYwgW74=
 github.com/opentracing/opentracing-go v1.0.2/go.mod h1:UkNAQd3GIcIGf0SeVgPpRdFStlNbqXla1AfSYxPUl2o=
